@@ -1,5 +1,34 @@
 'use strict';
 
 function createUpdatedCollection(collectionA, objectB) {
-  return 'Implement the practice require, and begin changing code in this row';
+  let objectArray = [];
+  var key = collectionA[0];
+  var cnt = 0;
+  for (var i = 0; i < collectionA.length; i++) {
+    if (collectionA[i].includes("-")){
+      objectArray.push({key,count: cnt});
+  	  key = collectionA[i].substring(0,collectionA[i].indexOf("-"));
+      cnt = parseInt(collectionA[i].substring(collectionA[i].indexOf("-")+1));
+    }else if (collectionA[i] != key) {
+      objectArray.push({key,count: cnt});
+      key = collectionA[i];
+      cnt = 1;
+      } else {
+          cnt++;
+      }
+  }
+  objectArray.push({key,count: cnt});
+
+  var keyB = Object.values(objectB);
+
+  return objectArray.map(element => {
+    if (keyB[0].includes(element.key)) {
+      return {
+        key: element.key,
+        count: element.count - Math.floor(element.count / 3)
+      }
+    }
+    return element;
+  });
 }
+

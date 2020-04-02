@@ -1,5 +1,14 @@
 'use strict';
 
 function createUpdatedCollection(collectionA, objectB) {
-  return 'Implement the practice require, and begin changing code in this row';
+  const keyB = Object.values(objectB);
+  return collectionA.map(element => {
+    if (keyB[0].includes(element.key)) {
+      return {
+        key: element.key,
+        count: element.count - Math.floor(element.count / 3)
+      }
+    }
+    return element;
+  });
 }
