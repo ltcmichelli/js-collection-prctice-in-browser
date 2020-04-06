@@ -1,28 +1,11 @@
 'use strict';
 
 function createUpdatedCollection(collectionA, objectB) {
-  let objectArray = [];
-  var key = collectionA[0];
-  var cnt = 0;
-  for (var i = 0; i < collectionA.length; i++) {
-    if (collectionA[i].includes("-")){
-      objectArray.push({key,count: cnt});
-  	  key = collectionA[i].substring(0,collectionA[i].indexOf("-"));
-      cnt = parseInt(collectionA[i].substring(collectionA[i].indexOf("-")+1));
-    }else if (collectionA[i] != key) {
-      objectArray.push({key,count: cnt});
-      key = collectionA[i];
-      cnt = 1;
-      } else {
-          cnt++;
-      }
-  }
-  objectArray.push({key,count: cnt});
+  let arrayOfCollectionA = convertArrayToObject(collectionA);
+  let arrayOfObjectB = Object.values(objectB).flat();
 
-  var keyB = Object.values(objectB);
-
-  return objectArray.map(element => {
-    if (keyB[0].includes(element.key)) {
+  return arrayOfCollectionA.map(element => {
+    if (arrayOfObjectB.includes(element.key)) {
       return {
         key: element.key,
         count: element.count - Math.floor(element.count / 3)
@@ -30,5 +13,27 @@ function createUpdatedCollection(collectionA, objectB) {
     }
     return element;
   });
+}
+
+function convertArrayToObject(collectionA){
+  let objectArray = [];
+  var key = collectionA[0];
+  var cnt = 0;
+  for (var i = 0; i < collectionA.length; i++) {
+      if (collectionA[i].includes("-")){
+        objectArray.push({key,count: cnt});
+    	  key = collectionA[i].substring(0, collectionA[i].indexOf("-"));
+        cnt = parseInt(collectionA[i].substring(collectionA[i].indexOf("-") + 1));
+      }else if (collectionA[i] != key) {
+        objectArray.push({key,count: cnt});
+        key = collectionA[i];
+        cnt = 1;
+        } else {
+            cnt++;
+        }
+    }
+    objectArray.push({key,count: cnt});
+
+   return objectArray;
 }
 
