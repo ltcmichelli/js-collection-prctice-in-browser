@@ -34,6 +34,5 @@ function convertArrayToObject(collectionA){
       }
   }
   objectArray.push({key,count: cnt});
-  console.log(objectArray);
   return objectArray;
 }
