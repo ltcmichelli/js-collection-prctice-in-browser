@@ -1,9 +1,9 @@
 'use strict';
 
 function createUpdatedCollection(collectionA, objectB) {
-  const keyB = Object.values(objectB);
+  let arrayOfObjectB = Object.values(objectB).flat();
   return collectionA.map(element => {
-    if (keyB[0].includes(element.key)) {
+    if (arrayOfObjectB.includes(element.key)) {
       return {
         key: element.key,
         count: element.count - 1
