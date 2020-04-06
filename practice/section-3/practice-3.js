@@ -1,6 +1,22 @@
 'use strict';
 
 function createUpdatedCollection(collectionA, objectB) {
+
+  let arrayOfCollectionA = convertArrayToObject(collectionA);
+  let arrayOfObjectB = Object.values(objectB).flat();
+
+  return arrayOfCollectionA.map(element => {
+    if (arrayOfObjectB.includes(element.key)) {
+      return {
+        key: element.key,
+        count: element.count - Math.floor(element.count / 3)
+      }
+    }
+    return element;
+  });
+}
+
+function convertArrayToObject(collectionA){
   let objectArray = [];
   var key = collectionA[0];
   var cnt = 0;
@@ -18,16 +34,6 @@ function createUpdatedCollection(collectionA, objectB) {
       }
   }
   objectArray.push({key,count: cnt});
-
-  var keyB = Object.values(objectB);
-
-  return objectArray.map(element => {
-    if (keyB[0].includes(element.key)) {
-      return {
-        key: element.key,
-        count: element.count - Math.floor(element.count / 3)
-      }
-    }
-    return element;
-  });
+  console.log(objectArray);
+  return objectArray;
 }
